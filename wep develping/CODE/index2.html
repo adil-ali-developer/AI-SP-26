@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>.NET Landing Page</title>
+  <style>
+    :root {
+      --bg: #f5f2f7;
+      --panel: #ffffff;
+      --soft: #f0ecf7;
+      --soft-2: #f8f5fb;
+      --navy: #1d2a6d;
+      --purple: #7b42ff;
+      --purple-2: #b85cff;
+      --purple-3: #f4d0ff;
+      --blue: #1f7af4;
+      --text: #1f2430;
+      --muted: #5f6170;
+      --line: #e8e1f1;
+      --shadow: 0 20px 50px rgba(68, 29, 134, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(172, 143, 255, 0.18), transparent 20%),
+        radial-gradient(circle at 90% 20%, rgba(143, 186, 255, 0.12), transparent 18%),
+        var(--bg);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .topbar {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(80, 70, 120, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      min-height: 72px;
+      font-size: 12px;
+    }
+
+    .nav-left,
+    .nav-right,
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .brand-mark {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, #77b9ff, #3f7df1 50%, #0f2d74);
+      position: relative;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7);
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .brand-mark::after {
+      inset: 8px 4px 4px 8px;
+      background: rgba(255,255,255,0.28);
+    }
+
+    .nav-center a,
+    .nav-right a {
+      color: #3a3c41;
+      font-weight: 600;
+    }
+
+    .nav-right .cta {
+      background: linear-gradient(180deg, #2563eb, #214dbc);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(37,99,235,0.25);
+    }
+
+    .hero {
+      padding-top: 40px;
+      padding-bottom: 36px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      padding: 36px 0 20px;
+    }
+
+    .hero-copy h1 {
+      margin: 0;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      color: #1d2243;
+      font-weight: 800;
+    }
+
+    .hero-copy h1 .dot {
+      color: #5a4ae3;
+    }
+
+    .hero-copy p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #4d5568;
+      max-width: 520px;
+      margin-top: 18px;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 20px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(180deg, #2d5efb, #244bd0);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 12px 28px rgba(37,99,235,0.25);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.4);
+      color: #1d2243;
+    }
+
+    .hero-meta {
+      color: #6f7382;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta a {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .hero-art {
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .device-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      height: 420px;
+    }
+
+    .device {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 430px;
+      height: 260px;
+      transform: translate(-50%, -25%) rotate(-12deg);
+      background: linear-gradient(135deg, #d6d0ff, #8f8cd8 42%, #6a5ad5 100%);
+      border-radius: 28px;
+      box-shadow: 0 40px 80px rgba(100, 80, 222, 0.22);
+      border: 1px solid rgba(90, 61, 200, 0.15);
+    }
+
+    .device::before {
+      content: "";
+      position: absolute;
+      inset: 22px 26px 18px 26px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(235,228,255,0.8));
+      box-shadow: inset 0 0 0 1px rgba(103, 92, 181, 0.12);
+    }
+
+    .device-screen {
+      position: absolute;
+      inset: 36px 40px 28px 40px;
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(31, 47, 129, 0.12), rgba(123, 66, 255, 0.08)),
+        linear-gradient(180deg, #f7f8ff, #eceefe);
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(79, 84, 180, 0.18);
+    }
+
+    .device-screen::before,
+    .device-screen::after {
+      content: "";
+      position: absolute;
+      background: rgba(116,104,255,0.14);
+      border-radius: 12px;
+    }
+
+    .device-screen::before {
+      width: 82%;
+      height: 8px;
+      left: 9%;
+      top: 22px;
+    }
+
+    .device-screen::after {
+      width: 56%;
+      height: 110px;
+      left: 22%;
+      bottom: 22px;
+      background: rgba(123,70,255,0.12);
+    }
+
+    .mini-ui {
+      position: absolute;
+      right: 18px;
+      top: 52px;
+      width: 150px;
+      height: 120px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(129, 116, 255, 0.18);
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(98, 79, 222, 0.18);
+      transform: rotate(15deg);
+    }
+
+    .mini-ui::before,
+    .mini-ui::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      border-radius: 10px;
+      background: rgba(118, 100, 245, 0.18);
+    }
+
+    .mini-ui::before {
+      top: 18px;
+      height: 18px;
+    }
+
+    .mini-ui::after {
+      top: 48px;
+      height: 42px;
+      background: linear-gradient(180deg, rgba(96,86,220,0.14), rgba(125,112,255,0.2));
+    }
+
+    .float-card {
+      position: absolute;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 18px 46px rgba(31, 38, 94, 0.1);
+      border: 1px solid rgba(104, 91, 169, 0.1);
+    }
+
+    .float-card.one {
+      left: 24px;
+      bottom: 30px;
+      width: 160px;
+      height: 92px;
+      transform: rotate(-12deg);
+      padding: 16px 18px;
+    }
+
+    .float-card.two {
+      right: 28px;
+      bottom: 34px;
+      width: 182px;
+      height: 100px;
+      transform: rotate(12deg);
+      padding: 16px 18px;
+    }
+
+    .stat-bar {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(105, 96, 183, 0.15);
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .stat-bar span {
+      display: block;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(90deg, #7a5cff, #3f9df8);
+      border-radius: inherit;
+    }
+
+    .feature-shell {
+      padding: 12px 0 32px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(200px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.68);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 16px 16px;
+      box-shadow: 0 12px 30px rgba(105, 90, 168, 0.04);
+    }
+
+    .feature .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #ffe5f8, #d8d1ff);
+      margin-bottom: 14px;
+    }
+
+    .feature h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color: #1c2345;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      font-size: clamp(2.4rem, 4vw, 4rem);
+      line-height: 1;
+      margin: 0;
+      letter-spacing: -0.05em;
+    }
+
+    .section-box {
+      background: rgba(255,255,255,0.52);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .metrics {
+      padding-top: 34px;
+      padding-bottom: 26px;
+    }
+
+    .metrics-wrap {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 26px;
+      align-items: center;
+      padding: 30px 28px 20px;
+    }
+
+    .metric-copy {
+      padding-right: 20px;
+    }
+
+    .metric-copy h2 {
+      font-size: clamp(2.1rem, 3vw, 3.3rem);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      margin: 0 0 16px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .metric-item {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .metric-item .value {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #1c234e;
+      letter-spacing: -0.05em;
+    }
+
+    .metric-item .label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 6px;
+      display: block;
+    }
+
+    .chart-art {
+      position: relative;
+      min-height: 220px;
+    }
+
+    .chart-card {
+      position: absolute;
+      width: 190px;
+      height: 150px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #8b35ff, #f865e9 60%, #ffc7f3);
+      box-shadow: 0 18px 40px rgba(122, 70, 219, 0.18);
+      left: 50%;
+      top: 48%;
+      transform: translate(-50%, -50%) rotate(12deg);
+    }
+
+    .chart-card::before,
+    .chart-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+    }
+
+    .chart-card::before {
+      width: 110px;
+      height: 110px;
+      left: 18px;
+      top: 18px;
+    }
+
+    .chart-card::after {
+      width: 40px;
+      height: 40px;
+      right: 26px;
+      bottom: 18px;
+      background: rgba(31, 122, 244, 0.35);
+    }
+
+    .chart-dots {
+      position: absolute;
+      inset: auto auto 18px 18px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .chart-dots span {
+      width: 10px;
+      height: 10px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(80, 50, 200, 0.14);
+    }
+
+    .purple-banner {
+      margin-top: 24px;
+      background: linear-gradient(135deg, #dca0ff, #a869ff 35%, #8143ee 100%);
+      border-radius: 26px;
+      padding: 18px 24px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      min-height: 180px;
+      box-shadow: 0 25px 50px rgba(124, 72, 211, 0.2);
+    }
+
+    .purple-banner-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .purple-banner h3 {
+      margin: 0 0 12px;
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      letter-spacing: -0.05em;
+      line-height: 1.05;
+    }
+
+    .purple-banner p {
+      margin: 0;
+      max-width: 420px;
+      font-size: 0.98rem;
+      color: rgba(255,255,255,0.86);
+      line-height: 1.55;
+    }
+
+    .chart-blob {
+      position: relative;
+      width: 100%;
+      min-height: 160px;
+    }
+
+    .pie {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: conic-gradient(from 90deg, #2e86ff 0 38%, #f7d386 38% 58%, #f056a5 58% 90%, #39c0d6 90% 100%);
+      right: 90px;
+      top: 22px;
+      box-shadow: 0 18px 30px rgba(73, 49, 169, 0.15);
+    }
+
+    .pie::before {
+      content: "";
+      position: absolute;
+      inset: 26px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.14);
+    }
+
+    .info-pair {
+      padding-top: 40px;
+      padding-bottom: 26px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
+      gap: 28px;
+      margin-top: 26px;
+    }
+
+    .info-box {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 10px;
+    }
+
+    .info-icon {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fef0ff, #d7c7ff 50%, #b4d2ff 100%);
+      position: relative;
+      box-shadow: inset 0 0 0 10px rgba(255,255,255,0.4);
+      flex-shrink: 0;
+    }
+
+    .info-icon::before {
+      content: "";
+      position: absolute;
+      width: 46%;
+      height: 46%;
+      border-radius: 14px;
+      background: rgba(100, 85, 255, 0.22);
+      left: 27%;
+      top: 28%;
+      transform: rotate(14deg);
+    }
+
+    .info-box h3 {
+      margin: 0 0 8px;
+      font-size: 2.1rem;
+      letter-spacing: -0.05em;
+      line-height: 1.1;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .journey {
+      padding-top: 22px;
+      padding-bottom: 20px;
+    }
+
+    .journey-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 28px;
+      align-items: center;
+      margin-top: 26px;
+    }
+
+    .journey-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .journey-copy h2 {
+      font-size: clamp(2.2rem, 3vw, 3.5rem);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      margin: 0;
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+      gap: 18px;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.58);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 16px;
+      box-shadow: 0 12px 30px rgba(101, 88, 160, 0.05);
+    }
+
+    .mini-card h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #1d233f;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .journey-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-start;
+      margin-top: 8px;
+      background: linear-gradient(180deg, #2d5efb, #244bd0);
+      color: white;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      box-shadow: 0 12px 24px rgba(37,99,235,0.18);
+    }
+
+    .product {
+      padding-top: 36px;
+      padding-bottom: 18px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .product-card {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 16px;
+      box-shadow: 0 12px 30px rgba(92, 78, 143, 0.04);
+    }
+
+    .product-card h4 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+      color: #1d2343;
+    }
+
+    .product-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    .product-card a {
+      display: inline-block;
+      margin-top: 16px;
+      color: #2c4bc9;
+      font-weight: 700;
+    }
+
+    .community {
+      padding-top: 36px;
+      padding-bottom: 24px;
+    }
+
+    .community-shell {
+      background: linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.75));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 28px 28px 22px;
+    }
+
+    .community-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .community-head h2 {
+      margin: 0;
+      font-size: clamp(2rem, 3vw, 3rem);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .community-head .btn {
+      min-height: 42px;
+      padding: 0 16px;
+    }
+
+    .community-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(150px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 34px 20px 12px;
+      border-radius: 22px;
+      background: rgba(240, 236, 248, 0.9);
+      border: 1px solid rgba(143, 137, 189, 0.15);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      color: #1d2345;
+    }
+
+    .stat-box span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .brands {
+      padding-top: 24px;
+      padding-bottom: 30px;
+    }
+
+    .brand-strip {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(110px, 1fr));
+      gap: 18px;
+      align-items: center;
+      padding-top: 20px;
+    }
+
+    .brand-pill {
+      height: 68px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #3a4459;
+      letter-spacing: -0.03em;
+    }
+
+    .cta-band {
+      margin-top: 24px;
+      background: linear-gradient(90deg, #2d5efb, #2563eb 42%, #3c77ff 100%);
+      color: white;
+      border-radius: 20px;
+      padding: 26px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      box-shadow: 0 18px 42px rgba(37,99,235,0.2);
+    }
+
+    .cta-band h3 {
+      margin: 0;
+      font-size: clamp(2rem, 3vw, 3rem);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .cta-band .btn {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.18);
+      color: white;
+    }
+
+    footer {
+      padding: 26px 0 40px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      border-top: 1px solid rgba(100,100,110,0.14);
+      color: #556072;
+      font-size: 0.9rem;
+    }
+
+    .socials {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+    }
+
+    .socials span {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--line);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-inner,
+      .metrics-wrap,
+      .purple-banner-inner,
+      .journey-layout,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid,
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+      }
+
+      .brand-strip {
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 12px 0;
+      }
+
+      .nav-center,
+      .nav-left,
+      .nav-right {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero-copy h1 {
+        letter-spacing: -0.04em;
+      }
+
+      .feature-grid,
+      .product-grid,
+      .community-stats,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-strip {
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+      }
+
+      .cta-band {
+        padding: 20px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="container nav">
+        <div class="nav-left">
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <span>Microsoft</span>
+          </div>
+        </div>
+
+        <nav class="nav-center" aria-label="Main navigation">
+          <a href="#">.NET</a>
+          <a href="#">Learn</a>
+          <a href="#">Docs</a>
+          <a href="#">Community</a>
+          <a href="#">GitHub</a>
+          <a href="#">Blog</a>
+        </nav>
+
+        <div class="nav-right">
+          <a href="#">Search</a>
+          <a href="#">Sign in</a>
+          <a href="#" class="cta">Download</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <h1>Build. Test. Deploy.<span class="dot">.</span></h1>
+            <p>
+              .NET is the free, open-source, cross-platform framework for building modern apps and powerful cloud services.
+            </p>
+            <div class="hero-actions">
+              <a href="#" class="btn primary">Download</a>
+              <a href="#" class="btn secondary">Get started</a>
+            </div>
+            <div class="hero-meta">
+              <span>Supported on Windows, Linux, and macOS</span>
+            </div>
+          </div>
+
+          <div class="hero-art" aria-hidden="true">
+            <div class="device-wrap">
+              <div class="device">
+                <div class="device-screen"></div>
+              </div>
+              <div class="mini-ui"></div>
+              <div class="float-card one">
+                <strong>80%</strong>
+                <div class="stat-bar"><span></span></div>
+              </div>
+              <div class="float-card two">
+                <strong>99.9%</strong>
+                <div class="stat-bar"><span style="width: 82%"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-shell container">
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="icon"></div>
+            <h3>Web</h3>
+            <p>Build web apps and services for Linux, macOS, and Windows.</p>
+          </article>
+
+          <article class="feature">
+            <div class="icon" style="background: linear-gradient(180deg, #e4f4ff, #d0ebff);"></div>
+            <h3>Mobile and desktop</h3>
+            <p>Use a single codebase to build native apps for iOS, Android, macOS, and Windows.</p>
+          </article>
+
+          <article class="feature">
+            <div class="icon" style="background: linear-gradient(180deg, #e8fff2, #d5f5e5);"></div>
+            <h3>Cloud</h3>
+            <p>Build scalable and resilient cloud-native apps faster with .NET.</p>
+          </article>
+
+          <article class="feature">
+            <div class="icon" style="background: linear-gradient(180deg, #fef1cf, #f3d8b8);"></div>
+            <h3>Artificial Intelligence</h3>
+            <p>Build AI-powered apps with OpenAI, Azure AI, and the broader .NET ecosystem.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="metrics container">
+        <div class="section-box metrics-wrap">
+          <div class="metric-copy">
+            <h2>Faster response times, less compute power, better applications</h2>
+            <div class="metric-grid">
+              <div class="metric-item">
+                <span class="value">172.5K</span>
+                <span class="label">requests/sec</span>
+              </div>
+              <div class="metric-item">
+                <span class="value">609.9K</span>
+                <span class="label">memory</span>
+              </div>
+              <div class="metric-item">
+                <span class="value">1.1M</span>
+                <span class="label">throughput</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-art" aria-hidden="true">
+            <div class="chart-card"></div>
+            <div class="chart-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="purple-banner">
+          <div class="purple-banner-inner">
+            <div>
+              <h3>State of .NET 2026</h3>
+              <p>
+                Help shape the future of .NET and the .NET ecosystem. Take the 2026 State of .NET survey and share your feedback.
+              </p>
+            </div>
+            <div class="chart-blob" aria-hidden="true">
+              <div class="pie"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-pair container">
+        <div class="info-grid">
+          <div class="info-box">
+            <div class="info-icon"></div>
+            <div>
+              <h3>Free and open source</h3>
+              <p>.NET is developed and maintained as a free and open-source project on GitHub, with the support of a passionate community.</p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <div class="info-icon" style="background: radial-gradient(circle at 35% 35%, #f7e6ff, #d7d6ff 52%, #bde8ff 100%);"></div>
+            <div>
+              <h3>Fast and cross-platform</h3>
+              <p>Build fast, secure, and scalable applications for cloud, web, mobile, and desktop.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="journey container">
+        <div class="journey-layout">
+          <div class="journey-copy">
+            <h2>Everything you need to start your .NET learning journey</h2>
+            <div class="journey-grid">
+              <article class="mini-card">
+                <h4>.NET for beginners</h4>
+                <p>Get started with the essentials of .NET and C# in a beginner-friendly path.</p>
+              </article>
+              <article class="mini-card">
+                <h4>Microsoft Learn</h4>
+                <p>Learn online with guided tutorials, labs, and hands-on practice from Microsoft.</p>
+              </article>
+              <article class="mini-card">
+                <h4>Build apps</h4>
+                <p>Create real applications and learn by doing with practical projects and samples.</p>
+              </article>
+              <article class="mini-card">
+                <h4>Cloud & AI</h4>
+                <p>Understand how .NET integrates with Azure, AI, and modern cloud-native tooling.</p>
+              </article>
+            </div>
+          </div>
+
+          <div>
+            <a href="#" class="journey-cta">Explore learning paths</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="product container">
+        <h2 class="section-title" style="margin-bottom: 20px;">Productive</h2>
+        <div class="product-grid">
+          <article class="product-card">
+            <h4>NuGet</h4>
+            <p>Build with the most secure package ecosystem for .NET developers worldwide.</p>
+            <a href="#">Browse the NuGet Gallery →</a>
+          </article>
+
+          <article class="product-card">
+            <h4>Visual Studio</h4>
+            <p>Develop with the best IDE for .NET and build apps for any platform with ease.</p>
+            <a href="#">Meet the Visual Studio family →</a>
+          </article>
+
+          <article class="product-card">
+            <h4>Visual Studio Code</h4>
+            <p>Download Visual Studio Code for .NET development and enjoy a lightweight editing experience.</p>
+            <a href="#">Download Visual Studio Code →</a>
+          </article>
+
+          <article class="product-card">
+            <h4>Azure</h4>
+            <p>Build, deploy, and scale modern apps with secure cloud services built for .NET.</p>
+            <a href="#">Explore Azure resources →</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="community container">
+        <div class="community-shell">
+          <div class="community-head">
+            <h2>Be a part of the global .NET developer community</h2>
+            <a href="#" class="btn primary">Get connected</a>
+          </div>
+
+          <div class="community-stats">
+            <div class="stat-box">
+              <strong>474K+</strong>
+              <span>stars on GitHub</span>
+            </div>
+            <div class="stat-box">
+              <strong>330K+</strong>
+              <span>followers on X</span>
+            </div>
+            <div class="stat-box">
+              <strong>329K+</strong>
+              <span>members on Meetup</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="brands container">
+        <div class="brand-strip" aria-label="Partner brands">
+          <div class="brand-pill">IPOTLE</div>
+          <div class="brand-pill">NEXT</div>
+          <div class="brand-pill">Dropbox</div>
+          <div class="brand-pill">Bing</div>
+          <div class="brand-pill">GitHub</div>
+          <div class="brand-pill">Azure</div>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="cta-band">
+          <h3>Ready to get started?</h3>
+          <a href="#" class="btn">Get started</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <div class="footer-row">
+        <div>Follow us</div>
+        <div class="socials">
+          <span>𝕏</span>
+          <span>◌</span>
+          <span>◎</span>
+          <span>◍</span>
+          <span>◐</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
